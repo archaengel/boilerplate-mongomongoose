@@ -132,9 +132,9 @@ var createManyPeople = function(arrayOfPeople, done) {
 
 var findPeopleByName = function(personName, done) {
   
-  Person.find({name: personName},(err, person) => err
+  Person.find({name: personName},(err, people) => err
              ? done(err)
-             : done(null, person));
+             : done(null, people));
 };
 
 /** 6) Use `Model.findOne()` */
@@ -148,7 +148,9 @@ var findPeopleByName = function(personName, done) {
 
 var findOneByFood = function(food, done) {
 
-  done(null/*, data*/);
+  Person.findOne({favoriteFoods: food}, (err, person) => err
+                ? done(err)
+                : done(null, person));
   
 };
 
