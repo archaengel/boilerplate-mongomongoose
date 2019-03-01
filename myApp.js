@@ -113,7 +113,9 @@ var createAndSavePerson = function(done) {
 
 var createManyPeople = function(arrayOfPeople, done) {
     
-    done(null/*, data*/);
+  Person.create(arrayOfPeople, (err, people)=> err
+                ? done(err)
+                : done (null, people));
     
 };
 
