@@ -12,6 +12,7 @@
 // `mongoose`. Store your **mLab** database URI in the private `.env` file 
 // as `MONGO_URI`. Connect to the database using `mongoose.connect(<Your URI>)`
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true})
   .catch(error => {
@@ -43,7 +44,13 @@ mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true})
 
 // <Your code here >
 
-var Person /* = <Your Model> */
+var personSchema = new Schema({
+  name: String,
+  age: Number,
+  favoriteFoods: [String]
+});
+
+var Person = mongoose.model('Person', personSchema);/* = <Your Model> */
 
 // **Note**: GoMix is a real server, and in real servers interactions with
 // the db are placed in handler functions, to be called when some event happens
@@ -82,8 +89,17 @@ var Person /* = <Your Model> */
 
 var createAndSavePerson = function(done) {
   
-  done(null /*, data*/);
-
+  var eddie = new Person({
+    name: "Eddie",
+    age: 25,
+    favoriteFoods: [
+      "pizza",
+      "pasta"
+    ]});
+  
+  eddie.save((err, people)=> err
+             ? done(err)
+             : done(null, people));
 };
 
 /** 4) Create many People with `Model.create()` */
